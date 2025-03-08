@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barcode Scanner</title>
+</head>
+<body>
+    <h1>สแกนบาร์โค้ด</h1>
+    <button id="openScanner">เปิดกล้องสแกน</button>
+
+    <dialog id="scannerDialog">
+        <video id="video" style="width: 100%;"></video>
+        <p>ผลลัพธ์: <span id="barcodeResult">-</span></p>
+        <button id="closeScanner">ปิด</button>
+    </dialog>
+
+    <script type="module">
+        import { BrowserMultiFormatReader } from "https://cdn.jsdelivr.net/npm/@zxing/library@latest/+esm";
+
+        const openScannerBtn = document.getElementById("openScanner");
+        const closeScannerBtn = document.getElementById("closeScanner");
+        const scannerDialog = document.getElementById("scannerDialog");
+        const barcodeResult = document.getElementById("barcodeResult");
+        let codeReader;
+
+        openScannerBtn.addEventListener("click", async () => {
+            // ✅ เช็คว่ามือถือรองรับ `navigator.mediaDevices` หรือไม่
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                alert("เบราว์เซอร์นี้ไม่รองรับการใช้กล้อง!");
+                return;
+            }
+
+            scannerDialog.showModal();
+            startScanner();
+        });
+
+        closeScannerBtn.addEventListener("click", () => {
+            scannerDialog.close();
+            stopScanner();
+        });
+
+        async function startScanner() {
+            codeReader = new BrowserMultiFormatReader();
+            try {
+                const videoInputDevices = await codeReader.listVideoInputDevices();
+                console.log("Available Cameras:", videoInputDevices);
+
+                if (videoInputDevices.length === 0) {
+                    alert("ไม่พบกล้อง! กรุณาตรวจสอบสิทธิ์การใช้งาน");
+                    return;
+                }
+
+                let backCamera = videoInputDevices[0].deviceId;
+
+                videoInputDevices.forEach((device) => {
+                    if (device.label.toLowerCase().includes("back")) {
+                        backCamera = device.deviceId;
+                    }
+                });
+
+                codeReader.decodeFromVideoDevice(backCamera, 'video', (result, err) => {
+                    if (result) {
+                        barcodeResult.textContent = result.text;
+                        stopScanner();
+                        scannerDialog.close();
+                    }
+                });
+            } catch (err) {
+                console.error("Camera Error:", err);
+                alert("เกิดข้อผิดพลาด: " + err);
+            }
+        }
+
+        function stopScanner() {
+            if (codeReader) {
+                codeReader.reset();
+            }
+        }
+    </script>
+</body>
+</html>
