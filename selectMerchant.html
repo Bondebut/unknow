@@ -46,6 +46,12 @@
         position: relative;
         text-align: center;
       }
+      h1 {
+        background: linear-gradient(to left, #ff0000, #000000);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
       .container {
         display: flex;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -102,6 +108,48 @@
           width: 100%;
         }
       }
+      .dialog {
+        border: none;
+        border-radius: 10px;
+        width: 70%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        backdrop-filter: blur(10px);
+        background-color: rgba(255, 255, 255, 0.5);
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      }
+      .camera {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid black;
+        border-radius: 10px;
+      }
+      .confirm-btn {
+        background-color: #4caf50;
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 10px;
+      }
+      .card_herdaer {
+        background: linear-gradient(to left, #3f0000, #000000);
+
+        text-align: center;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
     </style>
   </head>
   <body>
@@ -117,7 +165,7 @@
     >
       <div class="card">
 		<i class="fa-solid fa-barcode">
-        <a href="scan.html" class="text-color Primary">
+        <a id="openScanner" class="text-color Primary">
           แสกน QR Code เพื่อเลือกสินค้า
         </a>
 	</i>
@@ -125,7 +173,7 @@
 
       <div class="card">
 		<i class="fa-solid fa-cart-shopping">
-        <a href="cart.html" class="text-color Primary">
+        <a href="billCheck.html" class="text-color Primary">
           ดูรายการสินค้าในตะกร้า
         </a>
 		</i>
@@ -139,8 +187,32 @@
      background: #ffaaaa;
      padding: 10px 15px;
      border-radius: 10px;">กลับ</a>
-	<script>
 
+    <dialog class="dialog" id="scannerDialog">
+    <div class="camera">
+      <video id="video" style="width: 100%"></video>
+      <!-- <img src="picture" alt="ร้านค้า"> -->
+    </div>
+    <p style="font-size: 22px; text-align: start; margin-top: 1rem">
+      สินค้า: <span id="barcodeResult">-</span>
+    </p>
+    <button class="confirm-btn" id="conFirm">เพิ่มสินค้า</button>
+        <button class="primary-btn" id="closeScanner">ปิด</button>
+    </dialog>
+
+	<script>
+ const openScannerBtn = document.getElementById("openScanner");
+ const closeScannerBtn = document.getElementById("closeScanner");
+ const confirmBtn = document.getElementById("conFirm");
+ 
+ openScannerBtn.addEventListener("click", async () => {
+        scannerDialog.showModal();
+      });
+
+      closeScannerBtn.addEventListener("click", () => {
+        scannerDialog.close();
+        // window.location.href = "selectMerchant.html";
+      });
 	</script>
 
 	</script>

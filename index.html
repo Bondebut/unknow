@@ -36,7 +36,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <script src="https://unpkg.com/@zxing/browser@latest"></script>
+    <!-- <script src="https://unpkg.com/@zxing/browser@latest"></script> -->
     <style>
       * {
         margin: 0;
@@ -58,10 +58,10 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        backdrop-filter: blur(5px);
+        backdrop-filter: blur(10px);
         background-color: rgba(255, 255, 255, 0.5);
         padding: 20px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
       }
       .camera {
         width: 100%;
@@ -87,7 +87,6 @@
       }
       .card_herdaer {
         background: linear-gradient(to left, #3f0000, #000000);
-
         text-align: center;
         padding: 10px;
         margin-bottom: 10px;
@@ -112,17 +111,49 @@
         margin: 4px 2px;
         cursor: pointer;
         border-radius: 10px;
+        font-size: 20px;
+        margin: auto;
+        transition: all 1s ease;
+        box-shadow: 0 0 10px rgb(0, 0, 0);
       }
+      .camera_btn:hover {
+        scale: 1.1;
+        background-color: #ff0000;
+        color: #000000;
+      }
+      #barcodeResult {
+        font-weight: 700;
+        font-size: 22px;
+        color: #000;
+      }
+      #closeScanner {
+        position: absolute;
+        right: 1rem;
+        bottom: 1rem;
+      }
+      /* .container {
+        display: flex;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        height: 400px;
+        width: 600px;
+      } */
+
     </style>
   </head>
   <body>
     <div class="card_herdaer">
-      <h1>สแกนเพื่อเลือกร้าน</h1>
+      <h1>คุณคือใคร ...</h1>
     </div>
-    <div class="container">
+    <div class="container_new">
       <button id="openScanner" class="camera_btn">
         <i class="fa-solid fa-camera" style="margin-right: 10px"></i
-        >เปิดกล้องสแกนร้านค้า
+        >คุณคือผู้ซื้อ
+      </button>
+
+      <button id="gotoMyShop" class="camera_btn">
+        <i class="fa-solid fa-camera" style="margin-right: 10px"></i
+        >คุณคือร้านค้า
       </button>
     </div>
 
@@ -131,7 +162,9 @@
         <video id="video" style="width: 100%"></video>
         <!-- <img src="picture" alt="ร้านค้า"> -->
       </div>
-      <p>ร้านค้า: <span id="barcodeResult">-</span></p>
+      <p style="font-size: 22px; text-align: start; margin-top: 1rem">
+        ร้านค้า: <span id="barcodeResult">-</span>
+      </p>
       <!-- <button class="confirm-btn" id="conFirm">ตกลง</button> -->
       <button class="primary-btn" id="closeScanner">ปิด</button>
     </dialog>
@@ -139,9 +172,13 @@
     <script>
       const openScannerBtn = document.getElementById("openScanner");
       const closeScannerBtn = document.getElementById("closeScanner");
-      const confirmBtn = document.getElementById("conFirm");
+    //   const confirmBtn = document.getElementById("conFirm");
+	const gotoMyShop = document.getElementById("gotoMyShop");
       const picture = false;
 
+	  gotoMyShop.addEventListener("click", () => {
+		window.location.href = "myShop.html";
+	  });
       openScannerBtn.addEventListener("click", async () => {
         scannerDialog.showModal();
       });
@@ -151,9 +188,9 @@
         window.location.href = "selectMerchant.html";
       });
 
-      confirmBtn.addEventListener("click", () => {
-        scannerDialog.close();
-      });
+      //   confirmBtn.addEventListener("click", () => {
+      //     scannerDialog.close();
+      //   });
     </script>
   </body>
 </html>
