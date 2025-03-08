@@ -56,12 +56,13 @@
         display: flex;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
-        height: 400px;
-        width: 600px;
+        height: 30%;
+        width: 90%;
+        gap: 10px;
       }
       .card {
         display: flex;
-        max-width: 200px;
+        width: 200px;
         height: 200px;
         background: #000;
         align-items: center;
@@ -82,9 +83,7 @@
 		color: #ff0000;
 	}
 
-      .text-color {
-        color: #fff;
-      }
+
       h1 {
         position: relative;
         display: inline-block;
@@ -98,14 +97,17 @@
         width: 0;
         background-color: #ff0000;
         transform: translateX(-50%);
-        animation: lineBottom 3s ease forwards infinite;
+        animation: lineBottom 3s ease forwards;
       }
       @keyframes lineBottom {
         0% {
           width: 0;
         }
-        100% {
+        50% {
           width: 100%;
+        }
+        100% {
+          width: 0;
         }
       }
       .dialog {
@@ -145,23 +147,32 @@
       }
       .card_herdaer {
         background: linear-gradient(to left, #3f0000, #000000);
-
         text-align: center;
         padding: 10px;
         margin-bottom: 10px;
+        align-items: center;
+        background: url("https://img.freepik.com/free-vector/blue-curve-background_53876-113112.jpg");
+      }
+       
+      .card_herdaer::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: -10px;
+        height: 3px;
+        width: 0;
+        background-color: #ff0000;
+        transform: translateX(-50%);
+        animation: lineBottom 2.5s ease forwards ;
       }
     </style>
   </head>
   <body>
-    <h1 style="margin-top: 3rem">ร้านค้า "ชื่อร้าน"</h1>
+    <div class="card_herdaer">
+        <h1 style="margin: 0;">ร้านค้า "ชื่อร้าน"</h1>
+    </div>
     <div
-      class="container"
-      style="
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      "
+      class="container_new"
     >
       <div class="card">
 		<i class="fa-solid fa-barcode">
@@ -183,9 +194,9 @@
     style="position: absolute;
     top: 1rem;
     right: 1rem; 
-    font-size: 24px;
+    font-size: 20px;
      background: #ffaaaa;
-     padding: 10px 15px;
+     padding: 5px 10px;
      border-radius: 10px;">กลับ</a>
 
     <dialog class="dialog" id="scannerDialog">

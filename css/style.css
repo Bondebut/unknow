@@ -66,7 +66,6 @@ body {
 h1, h2, h3, h4, h5, h6 {
   color: #2B2D42;
   font-weight: 700;
-  margin: 0 0 10px;
 }
 
 a {
@@ -87,17 +86,51 @@ ul, ol {
   padding: 0;
   list-style: none
 }
+.text-color {
+  color: #fff;
+}
 
 .container_new {
   display: flex;
+
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  height: 400px;
-  width: 600px;
+  height: 30%;
+  width: 80%;
   margin: 0 auto;
   gap: 10px;
   justify-content: center;
 }
+
+.card_herdaer {
+  background: linear-gradient(to left, #3f0000, #000000);
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+  background: url("https://img.freepik.com/free-vector/blue-curve-background_53876-113112.jpg");
+}
+ 
+.card_herdaer::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  height: 3px;
+  width: 0;
+  background-color: #ff0000;
+  transform: translateX(-50%);
+  animation: lineBottom 2.5s ease forwards ;
+}
+@keyframes lineBottom {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
 
 /*----------------------------*\
 	Buttons

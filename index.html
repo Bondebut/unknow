@@ -78,48 +78,36 @@
         color: white;
         padding: 10px 15px;
         text-align: center;
-        text-decoration: none;
         display: inline-block;
         font-size: 16px;
-        margin: 4px 2px;
         cursor: pointer;
         border-radius: 10px;
-      }
-      .card_herdaer {
-        background: linear-gradient(to left, #3f0000, #000000);
-        text-align: center;
-        padding: 10px;
-        margin-bottom: 10px;
       }
       h1 {
         background: linear-gradient(to left, #ff0000, #000000);
         background-clip: text;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        margin: 0;
       }
-      .camera_btn {
-        background-color: #000000;
-        border: none;
-        color: #ff0000;
-        text-align: center;
-        font-weight: 700;
-        text-decoration: none;
-        display: inline-block;
-        width: 50%;
-        height: 50%;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 10px;
+      .card {
+        display: flex;
+        width: 200px;
+        height: 200px;
+        background: #000;
+        align-items: center;
         font-size: 20px;
+        padding: 0 5px;
+        text-wrap: nowarp;
+        color: #fff;
+        border-radius: 10px;
         margin: auto;
-        transition: all 1s ease;
-        box-shadow: 0 0 10px rgb(0, 0, 0);
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.5s;
       }
-      .camera_btn:hover {
+      .card:hover {
         scale: 1.1;
-        background-color: #ff0000;
-        color: #000000;
       }
       #barcodeResult {
         font-weight: 700;
@@ -139,22 +127,45 @@
         width: 600px;
       } */
 
+      .card_herdaer {
+        background: linear-gradient(to left, #3f0000, #000000);
+        text-align: center;
+        padding: 10px;
+        margin-bottom: 10px;
+        align-items: center;
+        background: url("https://img.freepik.com/free-vector/blue-curve-background_53876-113112.jpg");
+      }
+
+      .card_herdaer::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: -10px;
+        height: 3px;
+        width: 0;
+        background-color: #ff0000;
+        transform: translateX(-50%);
+        animation: lineBottom 2.5s ease forwards;
+      }
     </style>
   </head>
   <body>
     <div class="card_herdaer">
-      <h1>คุณคือใคร ...</h1>
+      <h1 style="margin: 0">คุณคือใคร ...</h1>
     </div>
     <div class="container_new">
-      <button id="openScanner" class="camera_btn">
-        <i class="fa-solid fa-camera" style="margin-right: 10px"></i
-        >คุณคือผู้ซื้อ
-      </button>
-
-      <button id="gotoMyShop" class="camera_btn">
-        <i class="fa-solid fa-camera" style="margin-right: 10px"></i
-        >คุณคือร้านค้า
-      </button>
+		<div class="card" id="openScanner">
+		<i class="fa-solid fa-camera" style="margin-right: 10px"></i>
+      <a  class="text-color Primary">
+       คุณคือผู้ซื้อ
+      </a>
+	  </i>
+	</div>
+	<div class="card" id="gotoMyShop">
+      <i class="fa-solid fa-shop"  style="margin-right: 10px; ">
+        <a  class="text-color Primary"> คุณคือร้านค้า </a>
+      </i>
+	</div>
     </div>
 
     <dialog class="dialog" id="scannerDialog">
@@ -172,13 +183,13 @@
     <script>
       const openScannerBtn = document.getElementById("openScanner");
       const closeScannerBtn = document.getElementById("closeScanner");
-    //   const confirmBtn = document.getElementById("conFirm");
-	const gotoMyShop = document.getElementById("gotoMyShop");
+      //   const confirmBtn = document.getElementById("conFirm");
+      const gotoMyShop = document.getElementById("gotoMyShop");
       const picture = false;
 
-	  gotoMyShop.addEventListener("click", () => {
-		window.location.href = "myShop.html";
-	  });
+      gotoMyShop.addEventListener("click", () => {
+        window.location.href = "myShop.html";
+      });
       openScannerBtn.addEventListener("click", async () => {
         scannerDialog.showModal();
       });
